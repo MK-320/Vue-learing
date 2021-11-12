@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+<!--   <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script> -->
+
+</head>
+<body>
+    <div id="app">
+        你好{{name}} <br>
+        欢迎来到常州{{address}}
+
+    </div>
+    <script>
+        // const vm=new Vue({
+        //  //  el:'#app', 这是第一种写法，这种在new一个vue实例的时候就需要想好改怎么写
+        //  //data的第一种写法：对象式
+        //    data:{
+        //        name:"世界"
+        //    },
+        //    methods:{}
+        // });
+        //其实也可以用第二种写法就是
+        // console.log(vm);
+        // setTimeout(() => {
+        //     vm.$mount('#app');   //等待一秒钟之后再解析
+        // }, 1000);
+
+
+        // new Vue({
+        //     el:"#app",
+        //    // data的第二种写法函数值，必须返回一个对象，就是return{} 。厘米的
+        //     data:function(){
+        //         console.log("@@@",this)  //此处的this输出的是一个Vue实例，也就是一个Vue的对象
+        //         return {
+        //             name:"世界",
+        //             address:"机电"
+        //         }
+        //     }
+        // })
+        
+        //  new Vue({
+        //     el:"#app",
+        //    // data的第二种写法函数值，必须返回一个对象，就是return{} 。厘米的
+        //     data(){  //函数也可以这么简写，但是不能写成箭头函数，因为箭头函数返回的是一个window的实例
+        //         console.log("@@@",this)  //此处的this输出的是一个Vue实例，也就是一个Vue的对象
+        //         return {
+        //             name:"世界",
+        //             address:"机电"
+        //         }
+        //     }
+        // })
+
+        /* 这种写法就是返回的一个window的实例 */
+         new Vue({
+            el:"#app",
+        
+            data:()=>{  //使用箭头函数
+                console.log("@@@",this)  //此处的this输出的是一个windows实例，
+                return {
+                    name:"世界",
+                    address:"机电"
+                }
+            }
+        })
+        
+    </script>
+</body>
+</html>
