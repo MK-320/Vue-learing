@@ -8,6 +8,42 @@
     <script type="text/javascript" src="/js/vue.js"></script>
 </head>
 <body>
+    <div id="root">
+        <!-- 普通写法 -->
+        <!-- 单向数据绑定：<input type="text" v-bind:value="name"> <br>
+
+        双向数据绑定：<input type="text" v-model:value="name">  -->
+
+        <!-- 简写写法 -->
+        单向数据绑定：<input type="text" :value="name"> <br>
+
+        双向数据绑定：<input type="text" v-model="name"> 
+        <!-- 如果在这里修改input的值  ，  第二个input会同时改变name的值，但是v-bind 如果修改input的值，这里的name不会修改，这叫单向绑定，只能name影响input，不能input影响name
+        但是，此时由于都是name的值，所以如果name的之后因为第二个是双向绑定的，所以修改input，从而影响name，而name又和第一个是单向绑定的，所以，也会同时影响第一个的值-->
+          
+       <!-- 简单来说，就是v-bind只能从data流向页面，不能从页面流向data
+        而v-model就可以是双向的
+    -->
+        <!-- 如下代码是错误的，因为   v-model 这个用于表单类的元素中（也称输入类元素） -->
+        <h1 v-model:x="哈哈哈">表单类元素</h1>
+        比如input  单选框input : radio，多选框select option1，2，3 多行输入（textarea 文本域） <br>
+        这些元素都有一个共有属性就是value值 ，因为v-model就是和value进行绑定的
+        v-model:value="name" 可以简写成 v-model="name",因为v-model默认绑定的就是value属性
+
+    </div>
+
+    <script type="text/javascript">
+        new Vue({
+            el:'#root',
+            data:{
+                name:'你好'
+            }
+        })
     
+    </script>
+   
+    
+    
+
 </body>
 </html>
