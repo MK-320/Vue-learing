@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object.defineproperty方法</title>
+</head>
+<body>
+    <!-- ES6中的一个高级方法，总共传入三个参数，一个对象，一个属性名，一个配置项（这里面可以有多个） -->
+
+  <script type="text/javascript">
+      let num=18
+      let person= {
+          name:"小明",
+          sex:"男",
+        //  age:'18'   /* 这种方法添加的属性是自己属性 */
+
+      }
+      Object.defineProperty(person ,'age',{
+        //   value:'18'  ,//这种添加的属性是不可以被枚举的，就是不参与遍历的
+        //   enumerable:true,   /* 原本是不可以参加遍历的   控制属性是否可以被枚举，默认值是false  
+        //   但是这个属性的值还是不可以更改的*/
+        //   writable:true, // 控制属性是否可以被修改
+        //   configurable:true,  //控制属性是否可以被删除  默认值为 false 
+
+          //当有人读取person的age属性时  get 就会被自动调用，
+          get(){  //这是一种简写方式  完整的应该是 get:function(){}
+            console.log('有人读取age属性了');  //这样age就是动态的了，因为年龄会变
+            return num;
+          },
+           //当有人修改person的age属性时  set 就会被自动调用，  且会收到修改的值
+          set(value){
+            console.log('有人修改了age属性，且值是',value);
+            num = value;  //传入的参数修改num 从而修改age
+            
+
+          }
+      })
+    console.log(Object.keys(person))  //这个方法可以将传入的对象的所有属性给提取出来变成一个数组
+   /* 使用了以上的方法之后，age属性就不能被提取了
+    */
+     for (let key in person) {   //打出forin  这个既可以遍历数组也可以遍历对象
+           console.log('@@',person[key])
+     }
+      console.log(person)
+  </script>
+</body> 
+</html>

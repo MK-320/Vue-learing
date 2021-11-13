@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+<!--   <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script> -->
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+    <div id="app">
+        <h1>学校名称：{{name}}</h1>
+        <h1>学校地址 ：{{address}}</h1>
+           <!-- dom 就是 view 页面层的 -->
+           <h1>{{$options}}</h1>   <!-- 带有 $开头的都是vue中已经有的一些实例和方法，可以直接使用-->
+
+           <!-- data中所有的东西最后都出现在了vm身上
+               vm中所有的的属性，及vm原型上的所有属性，再vue 模板中{{}} 都是可以直接使用的
+            
+            -->
+    </div>
+    <script type="text/javascript">
+        const vm=new Vue({   //整个vue 实例就是一个 vm  ViewModel  视图模型   
+           el:'#app',
+           data:{
+               name:"机电",    //data里的数据就是   model 
+               address:"常州"
+           },
+           methods:{}
+        });
+        console.log(vm);
+    </script>
+</body>
+</html>
