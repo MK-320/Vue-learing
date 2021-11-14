@@ -7,16 +7,26 @@
     <title>Document</title>
     <script src="../js/vue.js"></script>
 <!--   <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script> -->
-<link rel="stylesheet" href="base.css">
+ 
 </head>
 <body>
-    <div id="app"></div>
+
+    
+    <div id="app">
+         <h1>{{name}}</h1>
+        <h1>vue中的数据代理就是通过vm来代理data中的属性</h1>
+        <p>基本原理就是：通过Object.defineProperty()方法将data对象的所有属性给添加到vm中，vm中就是一个叫_data的对象来存储data中的所有属性，为其中所有的属性给添加getter 和setter方法来进行读和写 再data中的属性
+        </p>
+    </div>
     <script type="text/javascript">
         var vm=new Vue({
            el:'#app',
-           data:{},
+           data:{
+               name:"学校"
+           },
            methods:{}
         });
+        console.log(vm);
     </script>
 </body>
 </html>

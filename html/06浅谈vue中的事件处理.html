@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+<!--   <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script> -->
+
+</head>
+<body>
+    <div id="app">
+        <h1>欢迎来到{{name}}学习</h1>
+       <button v-on:click="showInfo($event)">点我（不传参）</button>
+       <p>以上的$event 再无参传入时可以省略，因为默认会传入一个$event事件  $event这种写法是vue特有的这么写</p>
+       <button @click="showInfo2($event,66)">点我传入参数</button>
+       <p>
+           总结：1. 使用 v-on:xxx  或者 @: xxx  来绑定事件  <br>
+                2. 事件的回调 需要配置在 methods中  ，而最终会在 vm 对象中  <br>
+                3. methods中 配置的函数 不要用箭头函数  ，否则 this 就不是vm 了 <br>
+                4.methods 中配置的函数都是 vue 管理的函数 ，this 指向的是 vm 或者组件实例对象<br>
+                5. @click ="fun"  和 @click ="fun($event)"  写法一样，只不过前者省略了 event ，而且后者可以传入参数 
+                 
+             
+       </p>
+    </div>
+    <script > 
+        var vm=new Vue({
+           el:'#app',
+           data:{
+               name:"尚硅谷"
+           },
+           methods:{
+               showInfo(event){
+                  console.log(event);
+                  console.log(event.target);
+                  console.log(event.target.innerText);
+                    alert("你好同学！");
+                    
+               },
+               showInfo2(event,num){   
+                 /*  所有被vue管理的函数 最好都写成 普通函数 不要写成 箭头函数 ，因为这样就不是 vue 实例而是 window 了*/
+                console.log(num,a);
+                console.log(event.target.innerText);
+                console.log('你好同学！@！！！！')
+               }
+           }
+        });
+    </script>
+</body>
+</html>
