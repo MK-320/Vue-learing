@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <!--   <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script> -->
+    <style>
+        .demo1 {
+            height: 50px;
+            margin-top: 20px;
+            background-color: skyblue;
+        }
+        .box1{
+            margin-top: 20px;
+            padding: 5px;
+            background-color: skyblue;
+
+        }
+        .box2{
+
+            padding: 5px;
+            background-color: orange;
+        }
+        .list{
+            width: 100px;
+            height: 200px;
+            overflow: auto;
+            background-color: aqua;
+        }
+        li{
+            height: 100px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Vue中的事件修饰符
+        1.prevent 阻止默认事件（常用）
+        2.stop 阻止事件冒泡  （常用）
+        3.once 事件只触发一次 （常用）
+        4.capture 使用事件的捕获模式  ,事件会在捕获阶段就开始处理，而不是等到冒泡阶段
+        5.self 只有event.target 是当前操作的元素时才触发事件
+        6.passive  事件的默认行为立即执行，无需等待事件回调(就是函数内的语句全部执行完在页面中去执行相应的操作，用户可能会感觉到卡顿)执行完毕 ，这个在移动端使用的较多，手机，平板,可以进行一些·性能优化
+    -->
+    <div id="app">
+        <h1>欢迎来到{{name}}</h1>
+        <a href="https://vuejs.bootcss.com/guide/syntax.html" @click="showInfo">点我跳转1</a>
+        <!-- 阻止默认事件    -->
+        <a href="https://vuejs.bootcss.com/guide/syntax.html" @click.prevent="showInfo">点我跳转2</a>
+        <!-- 方法二采用事件修饰符 -->
+
+        <!-- 
+            阻止事件冒泡
+         -->
+        <div class="demo1" @click="showInfo2()">
+            <button @click.stop="showInfo2">点我阻止事件冒泡</button>
+        </div>
+              <!--事件只触发一次 ，比如说你希望点击一个按钮只弹窗一次，以后都不弹窗 -->
+        <button @click.once="showInfo">点我事件只触发一次</button>
+            <!-- 事件捕获是由外而内的，而事件冒泡是由内而外的 -->
+        <div class="box1"  @click.capture="showMsg(1)">  
+            <!-- 加上这个之后，事件在捕获阶段就开始处理了 -->
+              div1
+            <div class="box2"  @click="showMsg(2)">
+                div2
+            </div>
+        </div>
+
+
+        <div class="demo1" @click.self="showInfo3">  
+            <!-- 只当target是div时才触发此事件，即使事件冒泡上来  button 也不行 -->
+            <button @click="showInfo3">点我提示信息</button>
+        </div>
+
+
+
+        <!-- 6.passive  事件的默认行为立即执行，无需等待事件回调执行完毕  -->
+        <ul class="list" @wheel="demo">   <!-- wheel和scroll 的区别可以见笔记 -->
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                name: "Vue"
+            },
+            methods: {
+                showInfo() {
+                    // e.preventDefault();  
+                    //通过把事件参数传入 ，调用此方法就可以阻止超链接的默认行为
+
+                    alert("同学你好！！");
+                },
+                showInfo1() {
+
+                    alert("同学你好！！");
+
+                },
+                showInfo2(e) {
+                   // e.stopPropagation();
+                    //可以使用默认的方法来阻止，也可以使用事件修饰符
+
+                    alert("阻止事件冒泡");
+                },
+                showMsg(msg) {
+                   
+                    console.log(msg)
+                    alert("事件捕获并处理了");
+                },
+                showInfo3(e) {
+                    console.log(e.target);
+                    alert("你好同学");
+                },
+                demo(){ 
+                    for (let i = 0; i < 100000; i++) {
+                        console.log("#")
+                        
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
