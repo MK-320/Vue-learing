@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../js/vue.js"></script>
+    <!--   <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script> -->
+
+</head>
+
+<body>
+    <div id="app">
+        姓：<input type="text" v-model:value="firstName"><br>
+        名：<input type="text" v-model:value="lastName"> <br>
+
+        姓名:<span>{{fullName}}</span> <br> <!-- 使用函数实现 -->
+        姓名:<span>{{fullName}}</span> <br>
+        姓名:<span>{{fullName}}</span> <br>
+        姓名:<span>{{fullName}}</span> <br>
+        姓名:<span>{{fullName}}</span> <br>
+
+        <p>计算属性和methods 其实都可以实现，但是计算属性有一个好处就是他有缓存，所以不用重复调用，但是methods没有所以，只要用methods 实现，他每次都会重新调用</p><br>
+
+        <p>计算属性: <br>
+            1.定义:要用的属性不存在,要通过已有属性计算得来  <br>
+            2.原理:底层借助了 objet. defineproperty,方法提供的 getter和 setter  <br>
+            3.get函数什么时候执行?   <br>
+                 (1)初次读取时会执行一次(2).当依赖的数据发生改变时会被再次调用。 <br>
+            4.优势:与methods实现相比,内部有缓存机制(复用),效率更高,调试方便  <br>
+            5.备注:  <br>
+                    1.计算属性最终会出现在m上,直接读取使用即可 <br>
+                    2.如果计算属性要被修改,那必须写set函数去响应修改,且set中要引起计算时依赖的数据发生改变。
+       </p>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                firstName: '张',
+                lastName: '三'
+            },
+            computed: {
+                /* 计算属性就是拿已经写好的属性，比如再data中的属性去计算然后形成一个全新属性 */
+                /* 计算属性也是需要写成一个对象因为可能有很多个属性需要被调用 */
+                fullName: {
+                    /* get 有什么用 ，当有人读取fullName 时 get就会被调用，且它的返回值就作为fullName 的返回值 */
+                    get() {
+                        /* get什么时候被调用？ 1. 初次使用 fullName 时，也就是说当一个页面中有多个fullName时，而且所计算属性的值未被改变他会执行一次，然后留一个缓存，这样不用重复调用 如上图*/
+                        /* 2. 当所依赖的数据发生改变时，此时肯定不能再使用缓存了，所以get会被重新调用*/
+                        console.log('get被调用了');
+                        return this.firstName + this.lastName
+                    },
+                    /* set  什么时后被调用？ 当fullName 被修改时 如 vm.fullName ='李四'
+                     */
+                    set(value) {
+                        console.log('set', value); // vm.fullName='李-四' 输出结果为 
+                        const arr = value.split('-'); /* 按照指定字符将字符串拆解 */
+                        this.firstName = arr[0];
+                        this.lastName = arr[1];
+                    }
+
+                }
+            }
+
+        });
+    </script>
+</body>
+
+</html>

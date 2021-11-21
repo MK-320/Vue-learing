@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../js/vue.js"></script>
+    <!--   <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script> -->
+
+</head>
+
+<body>
+    <div id="app">
+        姓：<input type="text" v-model:value="firstName"><br>
+        名：<input type="text" v-model:value="lastName"> <br>
+
+        姓名:<span>{{fullName}}</span> <br> <!-- 使用函数实现 -->
+        <p> 当 计算属性 只考虑读取不考虑修改时，也就是不考虑 有set 方法时 ，可以简写，此时就不需要写成一个对象的形式了</p>
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                firstName: '张',
+                lastName: '三'
+            },
+            computed: {
+                //完整写法
+                // fullName: {
+                //     /* get 有什么用 ，当有人读取fullName 时 get就会被调用，且它的返回值就作为fullName 的返回值 */
+                //     get() {
+                //         /* get什么时候被调用？ 1. 初次使用 fullName 时，也就是说当一个页面中有多个fullName时，而且所计算属性的值未被改变他会执行一次，然后留一个缓存，这样不用重复调用 如上图*/
+                //         /* 2. 当所依赖的数据发生改变时，此时肯定不能再使用缓存了，所以get会被重新调用*/
+                //         console.log('get被调用了');
+                //         return this.firstName + this.lastName
+                //     }
+                  
+                // } 
+                fullName(){     //或者可以这么写   fullName: function(){  }  都是一样
+                     console.log('get被调用了'); 
+                     return this.firstName + this.lastName
+                }
+            }
+
+        });
+    </script>
+</body>
+
+</html>

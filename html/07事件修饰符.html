@@ -59,6 +59,10 @@
          -->
         <div class="demo1" @click="showInfo2()">
             <button @click.stop="showInfo2">点我阻止事件冒泡</button>
+           <a href="https://www.baidu.com" @click.stop.prevent="showInfo2">点我阻止事件冒泡和默认事件</a>
+           <!-- 一个小技巧 ，这样写就是 先 阻止冒泡在阻止默认事件， 否则组织完冒泡还是会触发默认事件 -->
+           <a href="https://www.baidu.com" @click.prevent.stop="showInfo2">点我阻止事件冒泡和默认事件</a>
+           <!-- 这样写就是先阻止默认行为在阻止冒泡 ，这两种写法是不一样的  ，但是最终效果是一样的 -->
         </div>
               <!--事件只触发一次 ，比如说你希望点击一个按钮只弹窗一次，以后都不弹窗 -->
         <button @click.once="showInfo">点我事件只触发一次</button>
