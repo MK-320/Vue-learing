@@ -20,12 +20,14 @@
         <p> 当 计算属性 只考虑读取不考虑修改时，也就是不考虑 有set 方法时 ，可以简写，此时就不需要写成一个对象的形式了</p>
     </div>
     <script type="text/javascript">
+    
         var vm = new Vue({
             el: '#app',
             data: {
                 firstName: '张',
                 lastName: '三'
             },
+        
             computed: {
                 //完整写法
                 // fullName: {

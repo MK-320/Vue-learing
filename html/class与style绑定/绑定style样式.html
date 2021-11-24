@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../js/vue.js"></script>
+    <style>
+        .basic {
+            width: 300px;
+            height: 200px;
+            border: 1px solid black;
+            /* 基础样式，所有都有 */
+        }
+
+        .happy {
+            border: 2px solid red;
+            background-color: orange;
+
+        }
+
+        .sad {
+            border: 1px dashed green;
+            background-color: blue;
+
+        }
+
+        .normal {
+            background-color: skyblue;
+            border: none;
+        }
+
+        .a {
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        .b {
+            background-color: chartreuse;
+        }
+
+        .c {
+            border-radius: 20%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+         <div class="basic" style="font-size:40px;">{{name}}1</div> <br> <br>
+         <!-- 对比一下 -->
+         <div class="basic" :style="{fontSize: fsize +'px'}">{{name}}2</div> <br> <br>
+         <!-- 非要用style内联可以这么写，其实就是一个对象的写法，但是第二个单词需要大写，后面的单位用引号 -->
+        <!-- 其实可以这么写 对象写法-->
+         <div class="basic" :style="styleObj">{{name}}3</div> <br> <br>
+         <!--也可以这么写，数组里套对象 -->
+         <div class="basic" :style="[styleObj,styleObj2]">{{name}}4</div> <br> <br>
+         <!-- 当然也可以这么写 -->
+         <div class="basic" :style="styleArr">{{name}}5</div> <br> <br>
+    </div>  
+
+
+
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                name: "尚硅谷",
+                fsize:40,
+                styleObj:{
+                    fontSize:'40px' ,
+                    //还是键值对的形式，而且还需要大写第二个字母,因为font-size这样就是两个单词了，但是键和值都只能一个
+                    "font-weight":'bold', //要不然就这种写法,不省略冒号,
+                    color:"red",
+                    backgroundColor:'orange',
+                },
+                styleObj2:{
+                    "text-align":'center',
+                    'border-radius':"20%"
+
+                },
+                styleArr:[
+                    { 
+                        fontSize:'30px' ,
+                        color:"blue",  
+                    },
+                    {
+                        backgroundColor:'skyblue',
+                        "text-align":'center',
+                    }
+                ]
+                
+            },
+            methods: {
+            
+            },
+
+        });
+    </script>
+</body>
+
+</html>

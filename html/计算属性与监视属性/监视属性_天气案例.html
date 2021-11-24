@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../js/vue.js"></script>
+    <!--   <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script> -->
+
+</head>
+
+<body>
+    <div id="app">
+        <h2>今天天气{{isHot ? '炎热' : '凉爽'}} 普通实现</h2>
+        <h2>今天天气{{info}} 计算属性实现</h2>
+        <button @click="changeWeather">切换天气</button>
+        <button @click="isHot =!isHot">切换天气2</button>
+        <!-- 这里不用写this 稍微可以简化一下 如果少的话，多的话还是写个函数 -->
+        <p>监视属性watch：
+            1.当被监视的属性变化时，回调函数自动调用，进行相关操作  <br/>
+            2.监视的属性必须存在，才能进行监视！！ 但是监视不存在的值，他不会报错<br/>
+            3，监视的两种写法：<br/>
+            （1），new Vuel时传入watch配置 （2）.通过vm，$watch监视<br/>
+        </p>
+
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                isHot: true
+            },
+            computed: {
+                info() {
+                    return this.isHot ? '炎热' : '凉爽'
+                },
+
+            },
+            methods: {
+                changeWeather() {
+                    return this.isHot = !this.isHot
+                }
+            },
+            mounted() {
+
+            },
+            watch: {
+                //isHot 是我自己写的属性，其实计算属性也可以监视 
+                //完整写法
+                isHot: {
+                    immediate: true,
+                    /*  这个属性默认是false 一旦开启就是侦听开始之后,回调函数handler会被立即调用，包括重新打开页面 */
+                    //监视的属性也是需要写成一个对象的形式
+                    //这个函数是我自己写的  当isHot 发生改变时被调用
+                    handler(newValue, oldValue) { //他会默认传入两个参数，一个原来的值，一个新的值
+                        //而且我这里的形参可以直接写   x , y   只是为了接受他的值而已  ，这样写的形参可以看的更清楚
+                        alert("isHot从" + oldValue + "变为" + newValue)
+                    }
+                },
+                /* 简写写法（当不需要其他属性时，比如immediate 或者deep 时可以简写，直接写成一个函数） */
+                isHot(newValue, oldValue){ 
+                        alert("isHot从" + oldValue + "变为" + newValue)
+                    }
+            
+            }
+        });
+        /*  vm.$watch('isHot', function (newValue, oldValue) { 
+        //这里有两个参数，第一个是键值，要加冒号，其实上面的是省略了引号，然后就是一个回调函数
+               alert("isHot从" +oldValue+"变为"+newValue)  //外部调用vm实例中的watch函数
+              }); */
+        /*  vm.$watch('isHot',{ 
+      //这里有两个参数，第一个是键值，要加冒号，其实上面的是省略了引号，然后就是一个配置对象，可以这样简写，与上面的对比一下，属于一种简写，代价就是不能添加其他配置项比如immediate 或者deep，而且这里不允许写成箭头函数，()=>{
+          
+      }
+             alert("isHot从" +oldValue+"变为"+newValue)  //外部调用vm实例中的watch函数
+            }); */
+    </script>
+</body>
+
+</html>

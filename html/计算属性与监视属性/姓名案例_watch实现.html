@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../js/vue.js"></script>
+   
+
+</head>
+
+<body>
+    <div id="app">
+        姓：<input type="text" v-model:value="firstName"><br>
+        名：<input type="text" v-model:value="lastName"> <br>
+
+        姓名:<span>{{fullName}}</span> <br> <!-- 使用函数实现 -->
+         <p>
+            计算属性和监听属性 都可以实现某一功能，但是watch可以实现一个异步的操作 <br>
+            使用 watch 选项允许我们执行异步操作 (访问一个 API)，限制我们执行该操作的频率，并在 <br>
+            我们  得到最终结果前，设置中间状态。这些都是计算属性无法做到的。 <br>
+           计算属性是无法进行一个异步的操作的，参见下面的案例， <br>
+           所以当遇到一些异步的操作时就需要考虑watch了 <br>
+         </p>
+         <p>
+            两个重要的小原则：
+            1，所有被Vue管理的函数，最好写成普通函数，这样this的指向才是vm或组件实例对象。  <br> 
+            2.所有不被Vue所管理的函数（定时器的回调函数、aiax的回调函数等、Promise的回调函数）<br>
+            最好写成箭头函数，这样this的指向才是vm或组件实例对象。
+         </p>
+      
+    </div>
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                firstName: '张',
+                lastName: '三',
+                fullName:'张-三'  //先声明一个属性来存储
+
+            },
+            watch:{
+                //提出一个需求，当我姓改变时，我需要不能立马执行，而是等一秒钟在执行 ，这样的话计算属性就无法达到因为他是立马就计算出来的，而watch则是可以完成一个异步的操作
+                firstName(newValue){ 
+                    
+                    setTimeout(() => {
+                         console.log(this);
+                        this.fullName = newValue +'-'+ this.lastName
+                    }, 1000); 
+                    /* 这里使用箭头函数是因为 ,他会向外去找，然后找到了frstName（）而firstName是 vue的管理 的函数，所以这里的this输出的是vue的实例，但是如果写成普通函数就是windows的了 */
+                  
+                },
+                lastName(newValue){ 
+                    this.fullName = this.firstName +'-'+ newValue
+                }
+
+            },
+           /*  computed:{
+                fullName(){ 
+                    console.log("get被调用了");
+                    setTimeout(() => {
+                        return this.firstName + this.lastName
+                    }, 1000);
+                    //这样是错误的，因为return的返回值交给了计时器函数了，而fulName的get并没有接受到返回值，所以为空的，但是不会报错，与watch需要区分开
+                
+                } 
+            } */
+            
+                
+            
+
+        });
+    </script>
+</body>
+
+</html>

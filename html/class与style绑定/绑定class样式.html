@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../js/vue.js"></script>
+    <style>
+        .basic {
+            width: 300px;
+            height: 200px;
+            border: 1px solid black;
+            /* 基础样式，所有都有 */
+        }
+
+        .happy {
+            border: 2px solid red;
+            background-color: orange;
+
+        }
+
+        .sad {
+            border: 1px dashed green;
+            background-color: blue;
+
+        }
+
+        .normal {
+            background-color: skyblue;
+            border: none;
+        }
+
+        .a {
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        .b {
+            background-color: chartreuse;
+        }
+
+        .c {
+            border-radius: 20%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- 绑定class样式 1---字符串写法    适用于 ： 样式的类名不确定，需要动态指定(点击更改) -->
+        <div class="basic" :class="mood" @click="changeMood">{{name}}</div> <br><br>
+        <!-- 绑定class样式 2---数组写法     适用于：样式的个数不确定（数组中可能一个，也可能很多个，也可能没有），名字也不确定   -->
+        <div class="basic" :class="classArr" @click="changeMood">{{name}}</div> <br><br>
+        <!--   :class="['a','b','c']"   也可以这么写-->
+        <!--   :class="[a,b,c]"   不可以这么写 ，加引号是值，不加引号就是属性了，而data中并没有这几个属性 -->
+
+
+        <!-- 绑定class样式 3---对象写法    适用于：样式的个数确定，名字也确定，但是要动态决定用不用，比如说我这只需要在 a ，b 样式之间切换，个数确定 名字也确定，但是我不知道是用 a 还是用 b 还是都不用，还是都用-->
+        <div class="basic" :class="classObj" @click="changeClassObj()">{{name}}</div> <br><br>
+    </div>
+
+
+
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                name: "尚硅谷",
+                mood: "normal",
+                classArr: ['a', 'b', 'c'],
+                classObj: {
+                    a: false,
+                    b: false
+                }
+            },
+            methods: {
+                changeMood() {
+
+                    /*  this.mood='happy' */
+                    //但是这种写法很死，只能实现happy样式和normal样式的切换，可以升级一下
+                    const arr = ['happy', 'sad', 'normal'] //这样就转换为随机抽取数组下标
+                    const index = Math.floor(Math.random() * 3) //随机生成一个0 ~ 3 之间的数 不包含 3 
+                    this.mood = arr[index] //其实完全可以简写  arr[Math.floor(Math.random()*3)]
+                },
+                changeClassObj() {
+                     this.classObj.a = true
+                     this.classObj.b = true
+                }
+            },
+
+        });
+    </script>
+</body>
+
+</html>
