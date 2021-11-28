@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../js/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <p style="font-size: 22px;">Vue组件的模板语法在某些情况下会受到HTML代码的限制，比如table中只能使用tr和td ，ul中只能使用li 同样的还有ol
+            和select等等，此时就需要用到is属性来挂载组件</p>
+
+        <table border="1">
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td is="FeatureComponent"></td>
+            </tr>
+        </table>
+    <p>组件中也可以使用data ，computed ，methods等，但是data要写成一个函数将数据return 出去</p>
+    <sec-component></sec-component>
+    </div>
+    <script>
+        const Feature = Vue.component('FeatureComponent', {
+            template: '<div>这是组件的内容，is属性挂载的是组件的名字</div>',
+            data() { //这是data:function(){}的简写
+                return {
+
+                }
+            }
+        });
+        const Feature2 = Vue.component('sec-component', {
+            template: '<div>{{message}}</div>',
+            data() {
+                return {
+                    message: '这里是组件中data的返回值'
+                }
+            }
+
+        });
+        var vm = new Vue({
+            el: '#app',
+         
+        });
+    </script>
+</body>
+
+</html>

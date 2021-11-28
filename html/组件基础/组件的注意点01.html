@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../js/vue.js"></script>
+    <!--   <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script> -->
+    <link rel="stylesheet" href="base.css">
+</head>
+
+<body>
+    <div id="app">
+        <h1>实例1</h1>
+        <p>javascript引用外部对象时，这个对象就是共享的，数据也是，所以一个地方改变就会影响其他地方
+            ，我明明只是使用了一次组件，但是点击button却会变化三次，这肯定不是我们想要的结果可以这么改
+        </p>
+       <component></component>
+       <component></component>
+       <component></component>
+        <h1>实例2</h1>
+        <p>引用内部数据就不是共享的了，每个组件的data都是独立的</p>
+        <p  style="font-weight: bold;">注意当点击按钮时，每个组件都会各自独立维护它的 count。因为你每用一次组件，就会有一个它的新实例被创建。</p>
+        <component2></component2>
+        <component2></component2>
+        <component2></component2>
+    </div>
+    <script>
+        var data1 = {
+            counter: 0
+        };
+        const Feature = Vue.component('component', {
+            template: '<button @click="counter++">点我++{{counter}}</button>',
+            data() {
+                return data1;//外部引用
+
+            }
+        });
+        const Feature2 = Vue.component('component2', {
+            template: '<button @click="counter2++">点我++{{counter2}}</button>',
+            data() {
+                return {
+                    counter2:0
+                }
+
+            }
+        });
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

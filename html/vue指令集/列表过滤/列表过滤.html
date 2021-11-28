@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../../js/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <h2>过滤的应用场景，比如说有很多订单，我只要关键词有周的，那么就会过滤掉其他，只留下姓名中含有周的，这就是列表过滤的一个应用</h2>
+        <h1>人员列表</h1>
+        <input type="text" placeholder="请输入名字" v-model="keyword">
+        <ul>
+            <li v-for="(p,index) in filpersons" :key="p.id">
+                {{p.name}}--{{p.age}}--{{p.sex}}
+                <!-- 这里就需要对过滤过的数组进行遍历然后显示在页面上 -->
+            </li>
+        </ul>
+        <p>所有数组中都是由空字符串的，根据这个原理可以实现一开始就显示所有数据，这个可以传入一个空字符串来过滤，来进行验证</p>
+    </div>
+    <script>
+        //watch实现
+    //#region 
+        // var vm = new Vue({
+
+        //     el: '#app',
+        //     data: {
+        //         keyword: '',
+        //         persons: [{
+        //                 id: '001',
+        //                 name: "马冬梅",
+        //                 age: '18',
+        //                 sex: "女"
+        //             },
+        //             {
+        //                 id: '002',
+        //                 name: "周冬雨",
+        //                 age: '19',
+        //                 sex: "女"
+        //             },
+        //             {
+        //                 id: '003',
+        //                 name: "周杰伦",
+        //                 age: '20',
+        //                 sex: "男"
+        //             },
+        //             {
+        //                 id: '004',
+        //                 name: "温兆伦",
+        //                 age: '21',
+        //                 sex: "男"
+        //             },
+        //         ],
+        //         filpersons: [],
+        //     },
+        //     methods: {},
+        //     watch: {
+        //         keyword: {
+        //             // console.log("keyword被改了",oldvalu);
+        //             //   this.persons= this.persons.filter((p) => {
+        //             //     return p.name.indexOf(oldvalu)!==-1   //这样写是错误的，因为每次都会修改原数组，这样数据越过滤越少，不能修改原数据
+        //             // })
+        //              //可以增加一个新数组存储
+        //             immediate:true, 
+        //             handler(oldvalu) {
+        //                  //一开始就监视，就是用户啥也没输入时就执行监视，也就是代码，那么此时由于过滤的是空字符串，所有数据都有，相当于没有过滤，那么就可以实现，一开始就显示在屏幕上所有，其实是经过过滤的了，只是过滤的是空的
+        //                 this.filpersons = this.persons.filter((p) => {
+        //                     return p.name.indexOf(oldvalu) !== -1 //返回所有已存在的
+        //                 })
+        //             }
+
+        //         }
+        //     }
+        // });
+   //#endregion
+     //computed 实现
+      var vm = new Vue({
+
+            el: '#app',
+            data: {
+                keyword: '',
+                persons: [{
+                        id: '001',
+                        name: "马冬梅",
+                        age: '18',
+                        sex: "女"
+                    },
+                    {
+                        id: '002',
+                        name: "周冬雨",
+                        age: '19',
+                        sex: "女"
+                    },
+                    {
+                        id: '003',
+                        name: "周杰伦",
+                        age: '20',
+                        sex: "男"
+                    },
+                    {
+                        id: '004',
+                        name: "温兆伦",
+                        age: '21',
+                        sex: "男"
+                    },
+                ],
+              
+            },
+            computed:{
+                //计算属性一上来就会调用一次，还有就是数据改变时会调用
+                filpersons(){
+                    return this.persons.filter((p) => {
+                        return p.name.indexOf(this.keyword) !==-1
+                        
+                    })
+                }
+            }
+           
+        });
+    </script>
+</body>
+
+</html>
