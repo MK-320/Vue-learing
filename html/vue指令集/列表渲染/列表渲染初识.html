@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../../js/vue.js"></script>
+<!--   <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script> -->
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="person in persons" :key="person.id"> <!-- key是一个唯一标识必须要绑定  -->
+              <!--   姓名 -- 年龄  -->
+                {{person}}
+                {{person.name}}--{{person.age}}
+            </li>
+            <!-- persons 是一个数据集  person 是数据集中的每一个数，是一个形参 -->
+        </ul>
+        <h2>遍历数组（用的较多）</h2>
+        <ul>
+            <!-- <li v-for="(a,b) in persons" :key="persons.id"> 
+                {{a}}-------------{{b}} -->
+                <!-- 通过输出可以发现 这里的两个参数，第一个就是persons 里的每一个数据 ，第二个就是数组的索引值 -->
+            <!-- </li> -->
+
+
+           <li v-for="(p,index) in persons" :key="index">   <!-- 这里的key可以写 persons.id
+         或者写 index  都可以 因为他们都是唯一的，所以 key 只要保证唯一就行 -->
+               {{p}} -------{{index}}
+          </li>
+        </ul>
+        <h2>遍历对象（用的较多）</h2>
+        <ul>
+
+            <li v-for="(value,key) in car" :key="key">   <!-- 因为键也是唯一的，所以可以绑定 -->
+                {{key}} ------------{{value}}  <!-- 这里的第一个value就是对象中的值 ，key就是键 ，这里没有索引 -->
+            </li>
+        </ul>
+
+    <h2>遍历字符串（用的很少）</h2>
+    <ul>
+
+        <li v-for="(char,index) in str" :key="index">   
+            {{char}} ------------{{index}}  <!-- 这里的第一个就是字符串中的每一个字母，或者叫字符 ，第二个就是 索引-->
+        </li>
+    </ul>
+
+
+    <h2>遍历指定次数(用的很少) </h2>
+    <ul>
+
+        <li v-for="(number,index) in 5" :key="index">   
+            {{number}} ------------{{index}}     <!-- 第一个是从1开始计数  第二个是 索引 -->
+        </li>
+    </ul>
+
+    </div>
+    <script type="text/javascript"> 
+        var vm=new Vue({
+           el:'#app',
+           data:{
+               persons:[
+                    {id:'001',name:"张三",age:'18'},
+                    {id:'002',name:"李四",age:'19'},
+                    {id:'003',name:"王五",age:'20'},
+
+               ],
+               car:{
+                   name:"奥迪",
+                   price:"70w",
+                   color:"黑色"
+
+               },
+               str:"hello"
+           },
+           methods:{}
+        });
+    </script>
+</body>
+</html>

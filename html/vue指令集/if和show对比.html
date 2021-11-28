@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../js/vue.js"></script>
+<!--   <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script> -->
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+    <div id="app">
+        <!-- if是直接销毁 此节点 -->
+        <h2 v-if="false"> 欢迎来到{{name}}</h2>
+        <!-- show本质是通过更改display属性为none -->
+        <h2 v-show="false"> 欢迎来到{{name}}</h2>
+        <!-- 当需要展示的东西   频率很高时 建议用 v-show 因为他只是隐藏，而if则是添加和销毁节点 -->
+        
+        <h2>现在n的值为：{{n}}</h2>
+        <button @click="n++">点我n++</button>
+
+
+          <!-- 中间不能被打断 -->
+        <div v-if="n===1">Augular</div>
+        <div v-else-if="n===2">React</div>
+        <div v-else-if="n===3">Vue</div>
+        <div v-else>@@@@@</div>
+  
+        <!-- template 可以不破坏节点，也就是加了template中页面结构中不会增加template这个节点，渲染之后还是三个h2  但是不能配合v-show使用 -->
+        <!-- templpate 和 v-if的配合使用 -->
+        <template v-if="n===1">
+             <h2>北京</h2>
+             <h2>上海</h2>
+             <h2>南京</h2>
+        </template>
+    </div>
+    <script > 
+        var vm=new Vue({
+           el:'#app',
+           data:{
+               name:'机电',
+               n:1
+           },
+           methods:{}
+        });
+    </script>
+</body>
+</html>
