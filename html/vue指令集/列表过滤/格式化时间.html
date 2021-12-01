@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <script src="../../../js/vue.js"></script>
-    <script src="../../../js/dayjs.min.js"></script>
+  <!--   <script src="../../../js/dayjs.min.js"></script> -->
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    
 </head>
 <body>
     <div id="app">
@@ -15,6 +17,9 @@
         <h2>现在是：{{fmtTime}}</h2>
         <!-- methods实现 -->
         <h2>现在是：{{getTime()}}</h2>
+        <!-- 过滤器实现 -->
+        <h2>现在是：{{time | timeFormater()}}</h2>  <!-- time的值 --》timeFormater的返回值 ———》替换掉整个{{}} 里的 -->
+       <h3>这个过滤器有问题，但是没找到，还有一部分没看完视频</h3>
     </div>
     <script > 
 
@@ -25,7 +30,7 @@
            },
            computed:{
                fmtTime(){ 
-                   
+
                 return dayjs(this.time).format('YYYY年MM月DD日 HH:mm:ss');
                }
            },
@@ -34,7 +39,10 @@
                 return dayjs(this.time).format('YYYY年MM月DD日 HH:mm:ss');
                },
            filters:{
-
+                timeFormater(value){
+                    console.log("@",value);
+                    return dayjs(value).format('YYYY年MM月DD日 HH:mm:ss'); 
+                }
 
                }
            },
