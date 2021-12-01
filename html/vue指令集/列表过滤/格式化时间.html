@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../../js/vue.js"></script>
+    <script src="../../../js/dayjs.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>显示格式化之后的时间</h1>
+        <!-- 计算属性实现 -->
+        <h2>现在是：{{fmtTime}}</h2>
+        <!-- methods实现 -->
+        <h2>现在是：{{getTime()}}</h2>
+    </div>
+    <script > 
+
+        var vm=new Vue({
+           el:'#app',
+           data:{
+               time:'1638278263870' //毫米级时间，需要格式化，可以使用计算属性，调用第三方的库
+           },
+           computed:{
+               fmtTime(){ 
+                   
+                return dayjs(this.time).format('YYYY年MM月DD日 HH:mm:ss');
+               }
+           },
+           methods: {
+               getTime(){
+                return dayjs(this.time).format('YYYY年MM月DD日 HH:mm:ss');
+               },
+           filters:{
+
+
+               }
+           },
+
+
+           
+        });
+    </script>
+</body>
+</html>
