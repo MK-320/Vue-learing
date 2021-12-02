@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../js/vue.js"></script>
+    <!--   <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script> -->
+    <link rel="stylesheet" href="base.css">
+</head>
+
+<body>
+    <div id="app">
+        <p>现在这个需求就是，h1的透明度可以一直不断改变，其实可以通过原生js实现，如下</p>
+        <h1 :style="{opacity:opacity}">欢迎学习</h1> <!-- 可以这么写，但是es6中键和值相同，就可以省略只写一个 -->
+        <h1 :style="{opacity}">欢迎学习</h1>
+       <!--  {{change()}} -->
+
+       <p>生命周期函数中的this指向是vm 或者 组件实例化对象，生命周期函数的名字不可更改，但是里面的内容是根据需求更改的</p>
+    </div>
+    <script>
+        var vm = new Vue({
+                el: '#app',
+                data: {
+                    opacity: 1
+                },
+                methods: {
+                    /* change() {
+                        console.log("开启了一个定时器"); */
+                    /* 这样写是有大问题的，因为所有我的页面一解析模板就会调用，然后调用此方法，但是我的opacity一改变就会影响data中的  opacity  然后vue监测到数据变化就会重新解析，然后重新调用，形成一个递归死循环，可以打开控制台的调用次数 */
+                    /*   setInterval(() => {
+                          this.opacity -= 0.01
+                          if (this.opacity <= 0) this.opacity = 1
+                      }, 16); */
+                },
+    //生命周期钩子函数： 在vue 完成模板的解析，并把初始的真实的Dom元素放入页面后(挂载完毕)调用mounted
+                mounted() {
+                        /* mounted只会执行一次 */
+                    console.log("mounted",this);
+                    setInterval(() => {
+                        this.opacity -= 0.01 //以后数据发生变化这是更新，就不再重新解析模板了，只会更新dom
+                        if (this.opacity <= 0) this.opacity = 1
+                    }, 20);
+
+                }
+            }
+
+
+        );
+        /* 但是这样就不受vue操作了，这样不太好，通过外部的定时器实现 */
+        /*   setInterval(() => {
+              vm.opacity-=0.01
+              if( vm.opacity<=0) vm.opacity=1
+          }, 16); */
+    </script>
+</body>
+
+</html>

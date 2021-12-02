@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../../js/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <h1>当前n的值：{{n}} <br></h1>
+        <button @click="add">点我n++</button>
+    </div>
+    <script>
+        Vue.config.productionTip = false;
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                n: 1,
+            },
+            methods: {
+                add() {
+                    this.n++
+                }
+            },
+            beforeCreate() {
+                console.log(this);
+                console.log("此时初始化：生命周期，事件，但是数据代理还未开始，就是无法通过vm访问data，methods等，都还是未定义或者为null");
+                debugger; //打开页面，打开控制台，刷新控制台就可以开启本地调试
+                //然后观察vue 实例对象，发现此时的vm中根本没有_data 和  methods 等等其他的，很多都是null或者undefined
+            },
+            created() {
+                console.log(this);
+                console.log("此时初始化：数据代理和数据监测，此时就可以通过vm访问data和methods了");
+                debugger;
+            },
+            beforeMount () {
+                console.log(this);
+                console.log("此时页面呈现的是：未经编译的dom结构，所有对dom的操作最终都不奏效"); 
+                debugger;   
+            },
+            mounted(){
+            console.log(this,this.$el); 
+            console.log("");
+            }
+        });
+    </script>
+</body>
+
+</html>
