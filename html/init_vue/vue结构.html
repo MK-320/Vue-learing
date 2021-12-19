@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+<!--   <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script> -->
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+    <!-- 
+      注意：有vue div#app  div  区别
+      div#app 是vue源码中的模板字符串.不是真实的dom
+      经历过程如下
+      1：vue 通过el选中div#app为 vue的模板
+      2：经过vue源码处理 比如：{{}} 声明周期 ...
+      3: vue源码将处理的模板div#app 在变为dom
+     -->
+    <div id="app"></div>
+    <!-- div 直接就是dom -->
+    <div></div>
+    <script > 
+        var vm=new Vue({
+           el:'#app',// 指定滚路径
+           data:{}, // 
+           methods:{},
+           computed:{},
+           watch:{},
+        //    filter:{}
+        // 以下为声明周期函数 11个
+           created(){},
+           mounted(){}
+        });
+    </script>
+</body>
+</html>
